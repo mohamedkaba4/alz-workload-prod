@@ -13,10 +13,15 @@ variables:
 steps:
   - checkout: self
 
-  - bash: | wget -q https://releases.hashicorp.com/         terraform/$(terraformVersion)/terraform_$(terraformVersion)_linux_amd64.zip unzip terraform_$(terraformVersion)_linux_amd64.zip sudo mv terraform /usr/local/bin/ terraform version displayName: 'Install Terraform' 
+  - bash: |
+      wget -q https://releases.hashicorp.com/terraform/$(terraformVersion)/terraform_$(terraformVersion)_linux_amd64.zip
+      unzip terraform_$(terraformVersion)_linux_amd64.zip
+      sudo mv terraform /usr/local/bin/
+      terraform version
+    displayName: 'Install Terraform'
 
   - task: AzureCLI@2
-    displayName: Terraform Apply
+    displayName: 'Terraform Apply'
     inputs:
       azureSubscription: '$(serviceConnection)'
       scriptType: bash
